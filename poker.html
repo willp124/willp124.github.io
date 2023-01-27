@@ -59,15 +59,14 @@
                         
                         <h2 class="section-heading">System Overview</h2>
                         <img class="img-fluid" src="assets/img/system_overview.jpg" alt="..." />
+                        <span class="caption text-muted">Fig. 1. The overall framework of our system.</span>
+                        
                         <p>The overall framework is shown in Fig. 1. Concretely, three human players will deal 13 poker cards to robot arm in designed get-card position. After that, the robot arm will go to the get-card process to put the 13 cards from designed get-card position to the card rack by our designed sucking process. After 13 cards are all on the card rack, the robot arm will move to photo position. The action is trying to get the cards image to computer. Next, the computer will do the object detection module to get the 13 cards actual suit and number by yolo. If the detection did not get the 13 cards’ information, the robot arm will go back to get the image again. After getting the correct cards’ information, the computer will go to algorithm module to find the best set of hands. The object detection module and the algorithm module’s result will show on the computer to double check. Lastly, the robot arm will do the play-card process to play the hands in order and finish the entire round of Chinese poker card game.</p>
                         <!--<blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
                         -->
                         <h2 class="section-heading">Conclusion</h2>
-                        <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
-                        
-                        <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
-                        <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
-                        <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+                        <p>In this paper, we present a robotic system called Chinese Poker Self-Playing Robot. The robot is capable of playing the card game itself. With the sucker mechanism, the robot can suck up the cards from initial card pile and put them on card racks, or play the cards from the card racks. With yolov5 object detection model, the robot can get the correct card information by simply taking a photo of the card racks. With the divide hands algorithm, the robot can determine which card to play. The experiment results show that the robot can get the desired card order and play Chinese Poker card game smoothly. For future work, we can further deal the cards in arbitrary place in the beginning and improve our play card algorithm rather than greedy algorithm to make the system more robustness.</p>
+                        <p>More details are shown in following links:</p>
                         <p>
                             Final report: 
                             <a href="https://drive.google.com/file/d/1ROcTdKEzHniI1AAvJP1Um7wbR5TPk4I2/view?usp=sharing">link</a></p>
