@@ -58,10 +58,12 @@
                         <p>In order to address this issue, we proposed a robot that can automatically play Chinese Poker using a sucker mechanism to pick up the cards, Yolo v5 for object detection and classification, and our own greedy algorithm for selecting the cards to be played. This allows the robot to perform all actions from dealing to playing cards.</p>
                         
                         <h2 class="section-heading">System Overview</h2>
+                        <p></p>
                         <img class="img-fluid" src="assets/img/system_overview.jpg" alt="..." />
                         <span class="caption text-muted">Fig. 1. The overall framework of our system.</span>
                         
-                        <p>The overall framework is shown in Fig. 1. Concretely, three human players will deal 13 poker cards to robot arm in designed get-card position. After that, the robot arm will go to the get-card process to put the 13 cards from designed get-card position to the card rack by our designed sucking process. After 13 cards are all on the card rack, the robot arm will move to photo position. The action is trying to get the cards image to computer. Next, the computer will do the object detection module to get the 13 cards actual suit and number by yolo. If the detection did not get the 13 cards’ information, the robot arm will go back to get the image again. After getting the correct cards’ information, the computer will go to algorithm module to find the best set of hands. The object detection module and the algorithm module’s result will show on the computer to double check. Lastly, the robot arm will do the play-card process to play the hands in order and finish the entire round of Chinese poker card game.</p>
+                        <p>The overall framework is shown in Fig. 1. Concretely, three human players will deal 13 poker cards to robot arm in designed get-card position. After that, the robot arm will go to the get-card process to put the 13 cards from designed get-card position to the card rack by our designed sucking process. After 13 cards are all on the card rack, the robot arm will move to photo position. The action is trying to get the cards image to computer. </p>
+                        <p>Next, the computer will do the object detection module to get the 13 cards actual suit and number by yolo. If the detection did not get the 13 cards’ information, the robot arm will go back to get the image again. After getting the correct cards’ information, the computer will go to algorithm module to find the best set of hands. The object detection module and the algorithm module’s result will show on the computer to double check. Lastly, the robot arm will do the play-card process to play the hands in order and finish the entire round of Chinese poker card game.</p>
                         <!--<blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
                         -->
                         <h2 class="section-heading">Conclusion</h2>
@@ -77,6 +79,9 @@
                             Demo video: 
                             <a href="https://www.youtube.com/watch?v=SdnazMHygp0">link</a></p>    
                         </p>
+                        <h2 class="section-heading">Acknowledgment</h2>
+                        <p>In this project, I am grateful for lectures by Professor Li-Chen Fu, and my teammates' support and teamwork.</p>
+                        
                     </div>
                 </div>
             </div>
