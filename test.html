@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python API Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://example.com/hello",
+                type: "GET",
+                success: function(data) {
+                    $('#result').text(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
