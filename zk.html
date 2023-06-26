@@ -72,6 +72,10 @@
                         𝑠𝑦𝑚4=𝑠𝑦𝑚3+𝑥5<br>
                         ~𝑜𝑢𝑡=𝑠𝑦𝑚4/5</p>
                         <p>We can see that each of the statements above is a logic gate in a circuit. In comparison to the original mean value equation, we introduce 4 intermediate variables, 𝑠𝑦𝑚1 , 𝑠𝑦𝑚2 , 𝑠𝑦𝑚3 and 𝑠𝑦𝑚4 , and an additional redundant variable ~𝑜𝑢𝑡 to represent the output. Therefore, this set of statements are R1CS form, which each statement is a constraint and has only one rank.</p>
+                        
+                        <h2 class="section-heading">R1CS to QAP</h2>
+                        <p>"Quadratic arithmetic problem" (QAP) is a form of problem and it is easy to verify but hard to solve, which means it is not NP complete question. We need to use QAP to do further ZK-SNARK method. During the process of QAP conversion, if you have the input, you can create a corresponding solution referred to as the witness of the QAP. Then, following step is required to create an actual "zero-knowledge proof" for the witness.</p>
+                        <p>Next, we need to convert the R1CS to a sequence composed of three vectors (<em>A</em>, <em>B</em>, <em>C</em>). There is a solution vector 𝑠, which must satisfy the inner product operation:</p>
                     </div>
                 </div>
             </div>
