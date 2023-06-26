@@ -91,8 +91,13 @@
                         <p>Similarly, we can obtain the polynomials for each vector corresponding to the remaining constraints. After we get these 11 polynomials, QAP can become:</p>
                         <p style="text-align: center;">[𝑠∙𝐴(𝑛)]×[𝑠∙𝐵(𝑛)]−[𝑠∙𝐶(𝑛)]=𝐻(𝑛)×𝑍(𝑛)</p>
                         <p>where 𝑍(𝑛)=(𝑛−1)(𝑛−2)…(𝑛−5). Therefore, this formula is a standard QAP. Then, the following things is that using this QAP do the ZK-SNARK.</p>
-
-
+                        
+                        <h2 class="section-heading">QAP to ZK-SNARK</h2>
+                        <p>By converting computational problem into QAP, we can simultaneously check all the constraints using polynomial inner products, rather than individually checking each constraint like in R1CS.</p>
+                        <p>To verify the result polynomial [𝑠∙𝐴(𝑛)]×[𝑠∙𝐵(𝑛)]−[𝑠∙𝐶(𝑛)] at 𝑛＝1,2,3,4 and 5, we need to check if it equals 0 at all these points. If the polynomial is non-zero at any of these 5 points, the verification fails. Otherwise, if it is zero at all 5 points, the verification is successful.</p>
+                        <p>According the QAP is easy to verify but hard to solve, so if prover have the solution, it is easy to verify. To be specific, verifier randomly give the 𝑛′ to the prover, then the prover can calculate 𝐴̅(𝑛′),𝐵̅(𝑛′),𝐶̅(𝑛′) and 𝐻(𝑛′) from (6) to verifier where 𝐴̅(𝑛′)=𝑠∙𝐴(𝑛′) and so on. Then, the verifier can calculate the 𝐴̅(𝑛′)×𝐵̅(𝑛′)−𝐶̅(𝑛′) is equal to 𝐻(𝑛′)×𝑍(𝑛′) or not to verify that the prover has the knowledge or not. So far, the briefly proof of ZK-SNARK has been explained. The real implementation on ZK-SNZRK is shown in Fig. 2.</p>
+                        <img class="img-fluid" src="assets/img/ZKSNARK_2.png" alt="..." />
+                        <span class="caption text-muted">Fig. 2. Real implementation on ZK-SNZRK.</span>
                     </div>
                 </div>
             </div>
