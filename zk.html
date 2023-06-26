@@ -88,6 +88,11 @@
                         <p>The other sequences do the same things, then we can get 5 sets of QAP because we have 5 R1CSs. After that, we need to convert the QAP form to polynomial instead of the dot product of the matrix. Lagrange interpolation is applied in this process in order to get the coefficient of the constraints which come from the polynomial pass some specific point.</p>
                         <p>To be more specific, we convert 5 three-vector-sets of length 11 into 11 sets of polynomials. Each set of polynomials consists of three quartic polynomials.</p>
                         <p>First, we obtain the polynomials for the first value of 𝐴 vector corresponding to the 5 constraints. This means we use the Lagrange interpolation theorem to find the polynomials passing through points (1, 𝐴<sub>1</sub>(1)), (2, 𝐴<sub>2</sub>(1)), (3, 𝐴<sub>3</sub>(1)), (4, 𝐴<sub>4</sub>(1)) and (5, 𝐴<sub>5</sub>(1)). Then, get the coefficients of this polynomial. Because of the polynomials passing through 5 points, it is a quartic polynomial and correspondingly it has 5 coefficients for the new first value of 𝐴 vector corresponding to the 5 constraints.</p>
+                        <p>Similarly, we can obtain the polynomials for each vector corresponding to the remaining constraints. After we get these 11 polynomials, QAP can become:</p>
+                        <p style="text-align: center;">[𝑠∙𝐴(𝑛)]×[𝑠∙𝐵(𝑛)]−[𝑠∙𝐶(𝑛)]=𝐻(𝑛)×𝑍(𝑛)</p>
+                        <p>where 𝑍(𝑛)=(𝑛−1)(𝑛−2)…(𝑛−5). Therefore, this formula is a standard QAP. Then, the following things is that using this QAP do the ZK-SNARK.</p>
+
+
                     </div>
                 </div>
             </div>
