@@ -64,7 +64,7 @@
                         <h2 class="section-heading">Computation to R1CS</h2>
                         <p>Because ZK-SNARK cannot directly be used to solve any computational problem, we need to first convert the problem into the correct "form" to handle it, which is called an R1CS (Rank-1 Constraint System). To be more specific, we use the method called "flattening", which is let the equation only has two term:</p>
                         <p>1. <em>x = y</em> (where <em>y</em> can be a variable or a number)<br>
-                        2. <em>x = y op z</em> (where <em>op</em> is a binary operator such as +, -, *, or /, and <em>y</em> and <em>z</em> can be variables, numbers, or sub-expressions)</p>
+                        2. <em>x = y op z</em> (where <em>op</em> is a binary operator such as +, -, ×, or /, and <em>y</em> and <em>z</em> can be variables, numbers, or sub-expressions)</p>
                         <p>Therefore, the flattening result in our example expressed as:</p>
                         <p style="text-align: center;">𝑠𝑦𝑚<sub>1</sub>=𝑥<sub>1</sub>+𝑥<sub>2</sub><br>
                             𝑠𝑦𝑚<sub>2</sub>=𝑠𝑦𝑚<sub>1</sub>+𝑥<sub>3</sub><br>
