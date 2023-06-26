@@ -66,22 +66,22 @@
                         <p>1. <em>x = y</em> (where <em>y</em> can be a variable or a number)<br>
                         2. <em>x = y op z</em> (where <em>op</em> is a binary operator such as +, -, *, or /, and <em>y</em> and <em>z</em> can be variables, numbers, or sub-expressions)</p>
                         <p>Therefore, the flattening result in our example expressed as:</p>
-                        <p style="text-align: center;">𝑠𝑦𝑚1=𝑥1+𝑥2<br>
-                            𝑠𝑦𝑚2=𝑠𝑦𝑚1+𝑥3<br>
-                            𝑠𝑦𝑚3=𝑠𝑦𝑚2+𝑥4<br>
-                            𝑠𝑦𝑚4=𝑠𝑦𝑚3+𝑥5<br>
-                            ~𝑜𝑢𝑡=𝑠𝑦𝑚4/5</p>
-                        <p>We can see that each of the statements above is a logic gate in a circuit. In comparison to the original mean value equation, we introduce 4 intermediate variables, 𝑠𝑦𝑚1, 𝑠𝑦𝑚2, 𝑠𝑦𝑚3 and 𝑠𝑦𝑚4, and an additional redundant variable ~𝑜𝑢𝑡 to represent the output. Therefore, this set of statements are R1CS form, which each statement is a constraint and has only one rank.</p>
+                        <p style="text-align: center;">𝑠𝑦𝑚<sub>1</sub>=𝑥<sub>1</sub>+𝑥<sub>2</sub><br>
+                            𝑠𝑦𝑚<sub>2</sub>=𝑠𝑦𝑚<sub>1</sub>+𝑥<sub>3</sub><br>
+                            𝑠𝑦𝑚<sub>3</sub>=𝑠𝑦𝑚<sub>2</sub>+𝑥<sub>4</sub><br>
+                            𝑠𝑦𝑚<sub>4</sub>=𝑠𝑦𝑚<sub>3</sub>+𝑥<sub>5</sub><br>
+                            ~𝑜𝑢𝑡=𝑠𝑦𝑚<sub>4</sub>/5</p>
+                        <p>We can see that each of the statements above is a logic gate in a circuit. In comparison to the original mean value equation, we introduce 4 intermediate variables, 𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub> and 𝑠𝑦𝑚<sub>4</sub>, and an additional redundant variable ~𝑜𝑢𝑡 to represent the output. Therefore, this set of statements are R1CS form, which each statement is a constraint and has only one rank.</p>
                         
                         <h2 class="section-heading">R1CS to QAP</h2>
                         <p>"Quadratic arithmetic problem" (QAP) is a form of problem and it is easy to verify but hard to solve, which means it is not NP complete question. We need to use QAP to do further ZK-SNARK method. During the process of QAP conversion, if you have the input, you can create a corresponding solution referred to as the witness of the QAP. Then, following step is required to create an actual "zero-knowledge proof" for the witness.</p>
                         <p>Next, we need to convert the R1CS to a sequence composed of three vectors (𝐴, 𝐵, 𝐶). There is a solution vector 𝑠, which must satisfy the inner product operation:</p>
                         <p style="text-align: center;">𝑠∙𝐴×𝑠∙𝐵=𝑠∙𝐶</p>
-                        <p>In this case, the solution vector 𝑠 corresponds to the witness. For our average example, apart from the 10 variables after flattening (𝑠𝑦𝑚1, 𝑠𝑦𝑚2, 𝑠𝑦𝑚3, 𝑠𝑦𝑚4, 𝑥1, 𝑥2, 𝑥3, 𝑥4, 𝑥5, ~𝑜𝑢𝑡) , we also need to introduce the redundant variable ~one in the first component position to represent the number 1. In our average example, one possible arrangement of these 11 components corresponding to a vector is as follows:</p>
-                        <p style="text-align: center;">𝑠=[~𝑜𝑛𝑒, 𝑠𝑦𝑚1, 𝑠𝑦𝑚2, 𝑠𝑦𝑚3, 𝑠𝑦𝑚4, 𝑥1, 𝑥2, 𝑥3, 𝑥4, 𝑥5, ~𝑜𝑢𝑡]</p>
+                        <p>In this case, the solution vector 𝑠 corresponds to the witness. For our average example, apart from the 10 variables after flattening (𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub>, 𝑠𝑦𝑚<sub>4</sub>, 𝑥<sub>1</sub>, 𝑥<sub>2</sub>, 𝑥<sub>3</sub>, 𝑥<sub>4</sub>, 𝑥<sub>5</sub>, ~𝑜𝑢𝑡) , we also need to introduce the redundant variable ~one in the first component position to represent the number 1. In our average example, one possible arrangement of these 11 components corresponding to a vector is as follows:</p>
+                        <p style="text-align: center;">𝑠=[~𝑜𝑛𝑒, 𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub>, 𝑠𝑦𝑚<sub>4</sub>, 𝑥<sub>1</sub>, 𝑥<sub>2</sub>, 𝑥<sub>3</sub>, 𝑥<sub>4</sub>, 𝑥<sub>5</sub>, ~𝑜𝑢𝑡]</p>
                         <p>Assume the input 𝑥<sub>𝑛</sub> are [5, 8, 1, 19, 3], and then we can easily get the 𝑠 value:</p>
                         <p style="text-align: center;">𝑠=[1, 13, 14, 33, 36, 5, 8, 1, 19, 3, 7.2]</p>
-                        <p>Take first sequence 𝑠𝑦𝑚1=𝑥1+𝑥2 ⇒(𝑥1+𝑥2)∗1=𝑠𝑦𝑚1 as example, the vectors (𝐴, 𝐵, 𝐶) like:</p>
+                        <p>Take first sequence 𝑠𝑦𝑚<sub>1</sub>=𝑥<sub>1</sub>+𝑥<sub>2</sub> ⇒(𝑥<sub>1</sub>+𝑥<sub>2</sub>)∗1=𝑠𝑦𝑚<sub>1</sub> as example, the vectors (𝐴, 𝐵, 𝐶) like:</p>
                         <p style="text-align: center;">𝐴<sub>1</sub>=[0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]<br>
                             𝐵<sub>1</sub>=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]<br>
                             𝐶<sub>1</sub>=[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]</p>
