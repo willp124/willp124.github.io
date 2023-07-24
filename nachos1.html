@@ -69,6 +69,9 @@
                         <p>(1) 首先，需要先在addrspace.h檔中增加兩個static變數，這個static變數是AddrSpace這個class擁有的，如Fig. 4中紅框所示。</p>
                         <img class="img-fluid" src="assets/img/nachos1_4.png" alt="..." />
                         <span class="caption text-muted">Fig. 4. addrspace.h中AddrSpace的程式碼</span>
+                        <p>其中usedPhysPage[NumPhysPages]是用來記錄所有Page的使用狀況，NumPhysPages是指實體記憶空間最大的Page數；而usedPhysPageNum是用來記錄總共用的Page有多少，以確保加上額外的threads時不會超過NumPhysPages。</p>
+                        <br>
+                        <p>(2) 在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如圖3所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
                         
 
                         <h2 class="section-heading">3. Experiment result</h2>
@@ -77,7 +80,7 @@
                         <span class="caption text-muted">Fig. 9. 修改後的執行結果</span>
 
                         <h2 class="section-heading">4. Discussion</h2>
-                        <p>從修正後的輸出結果能發現它不是執行完第一個程式再執行第二個，也就是說它的排程不是First Come First Serve(FCFS)，而是給定特定時間執行一下，換下一個執行特定時間，也就是它的排程邏輯是Round-robin(RR)，輪流執行的意思，所以修改後的結果會像test1執行了9 8 7後換test2執行20 21 22 23 24，再換回test1執行完6，最後test2執行完25結束。而以上提到的FCFS，雖然是所有排程中最簡單的，但是很明顯有個問題，就是有些不用執行太久的程式會被先到的大程式卡住，直到處理完畢或是該任務主動讓出使用權，產生霸佔問題，讓其他進入排程的任務永源分配不到硬體資源。而RR排程就能解決這個問題，另外在排程邏輯上還有Shortest Job First(SJF)以及Priority Scheduling(PS)等等，都各有優缺點，而本次NachOS是採用RR排程。</p>
+                        <p>從修正後的輸出結果能發現它不是執行完第一個程式再執行第二個，也就是說它的排程不是First Come First Serve (FCFS)，而是給定特定時間執行一下，換下一個執行特定時間，也就是它的排程邏輯是Round-robin (RR)，輪流執行的意思，所以修改後的結果會像test1執行了9 8 7後換test2執行20 21 22 23 24，再換回test1執行完6，最後test2執行完25結束。而以上提到的FCFS，雖然是所有排程中最簡單的，但是很明顯有個問題，就是有些不用執行太久的程式會被先到的大程式卡住，直到處理完畢或是該任務主動讓出使用權，產生霸佔問題，讓其他進入排程的任務永源分配不到硬體資源。而RR排程就能解決這個問題，另外在排程邏輯上還有Shortest Job First (SJF)以及Priority Scheduling (PS)等等，都各有優缺點，而本次NachOS是採用RR排程。</p>
                        
                     </div>
                 </div>
