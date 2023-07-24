@@ -56,14 +56,14 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <p>當分開執行test1及test2程式，產生如Fig. 1的結果。</p>
                         <img class="img-fluid" src="assets/img/nachos1_1.png" alt="..." />
-                        <span class="caption text-muted">Fig. 1. 分開執行test1及test2結果</span>
+                        <span class="caption text-muted">Fig. 1. 分開執行test1及test2的結果</span>
                         <p>但在同時執行test1及test2程式時，產生如Fig. 2的結果，產生錯誤的輸出。</p>
                         <img class="img-fluid" src="assets/img/nachos1_2.png" alt="..." />
-                        <span class="caption text-muted">Fig. 2. 同時執行test1及test2結果</span>
+                        <span class="caption text-muted">Fig. 2. 同時執行test1及test2的結果</span>
                         <h2 class="section-heading">1. Why the result is not congruent with expected?</h2>
-                        <p>因為在NachOS的原始架構中，沒有為多個程式做記憶體空間的管理，原始架構雖然有另建虛擬的記憶體空間，但是當使多份程式同時執行時，就如project1所示，一次執行test1和test2時，他們會重疊使用同樣的記憶空間，使得多個程式發生錯亂。從程式碼來看在addrspace.cc這個檔案中的AddrSpace()，它預設設定會將所有的實體記憶體空間的分頁分配出去，如圖1中for迴圈所示，預設使其跑到NumPhysPages，為所有實體記憶體空間分頁。接著以下會討論如何修改以及修改後結果。</p>
-                        <img class="img-fluid" src="assets/img/ZKSNARK_2.png" alt="..." />
-                        <span class="caption text-muted">Fig. 3. Real implementation on ZK-SNZRK.</span>
+                        <p>因為在NachOS的原始架構中沒有為多個程式做記憶空間的管理，原始架構雖然有另建虛擬的記憶空間，但是當使多份程式同時執行時，就如project1所示，一次執行test1和test2時，他們會重疊使用同樣的記憶空間，使得多個程式發生錯亂。從程式碼來看在addrspace.cc這個檔案中的AddrSpace()，它預設設定會將所有的實體記憶空間分頁分配出去，如圖1 for迴圈所示，預設使其跑到NumPhysPages，為所有實體記憶空間分頁。接著以下會討論如何修改以及修改後結果。</p>
+                        <img class="img-fluid" src="assets/img/nachos1_3.png" alt="..." />
+                        <span class="caption text-muted">Fig. 3. 原始NachOS中AddrSpace()的程式碼</span>
 
                         <h2 class="section-heading">R1CS to QAP</h2>
                         <p>"Quadratic arithmetic problem" (QAP) is a form of problem and it is easy to verify but hard to solve, which means it is not NP complete question. We need to use QAP to do further ZK-SNARK method. During the process of QAP conversion, if you have the input, you can create a corresponding solution referred to as the witness of the QAP. Then, following step is required to create an actual "zero-knowledge proof" for the witness.</p>
