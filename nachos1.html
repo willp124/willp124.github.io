@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Will's Blog</title>
+        <link rel="icon" type="image/x-icon" href="assets/admxx-rngey-001.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Will Peng</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/zero-knowledge-proof.webp')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>NachOS - Thread Management</h1>
+                            <h2 class="subheading">OS Project 1</h2>
+                            <span class="meta">
+                                Posted by Will Peng on July 24, 2023
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>ZK-SNARK are regarded as one of the most popular cryptographic technologies with many potential applications. ZK-SNARK is a concise, non-interactive zero-knowledge proof. It enables the proof of a proposition's correctness without revealing any additional information. Moreover, the resulting proofs possess succinctness, meaning they are small and independent of the computational complexity. In simple terms, ZK-SNARKs allow an individual to prove something to others without disclosing any privacy-related details, while generating compact proofs with low verification costs that are unrelated to the computational effort required for the proof's content.</p>
+                        <p>The following parts are the explanation of ZK-SNARK principle and its flow chart is shown in Fig. 1. For example, we try to get the average and need to confirm correctness without access to the raw data. We know a solution to a mean value equation:</p>
+                        <p style="text-align: center;">𝑎𝑣𝑔=Σ𝑥/𝑛<p>
+                        <p>where we set 𝑛=5 as example.</p>
+                        <img class="img-fluid" src="assets/img/ZKSNARK.png" alt="..." />
+                        <span class="caption text-muted">Fig. 1. ZK-SNARK flow chart.</span>
+
+                        <h2 class="section-heading">Computation to R1CS</h2>
+                        <p>Because ZK-SNARK cannot directly be used to solve any computational problem, we need to first convert the problem into the correct "form" to handle it, which is called an R1CS (Rank-1 Constraint System). To be more specific, we use the method called "flattening", which is let the equation only has two term:</p>
+                        <p>1. <em>x = y</em> (where <em>y</em> can be a variable or a number)<br>
+                        2. <em>x = y op z</em> (where <em>op</em> is a binary operator such as +, -, ×, or /, and <em>y</em> and <em>z</em> can be variables, numbers, or sub-expressions)</p>
+                        <p>Therefore, the flattening result in our example expressed as:</p>
+                        <p style="text-align: center;">𝑠𝑦𝑚<sub>1</sub>=𝑥<sub>1</sub>+𝑥<sub>2</sub><br>
+                            𝑠𝑦𝑚<sub>2</sub>=𝑠𝑦𝑚<sub>1</sub>+𝑥<sub>3</sub><br>
+                            𝑠𝑦𝑚<sub>3</sub>=𝑠𝑦𝑚<sub>2</sub>+𝑥<sub>4</sub><br>
+                            𝑠𝑦𝑚<sub>4</sub>=𝑠𝑦𝑚<sub>3</sub>+𝑥<sub>5</sub><br>
+                            ~𝑜𝑢𝑡=𝑠𝑦𝑚<sub>4</sub>/5</p>
+                        <p>We can see that each of the statements above is a logic gate in a circuit. In comparison to the original mean value equation, we introduce 4 intermediate variables, 𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub> and 𝑠𝑦𝑚<sub>4</sub>, and an additional redundant variable ~𝑜𝑢𝑡 to represent the output. Therefore, this set of statements are R1CS form, which each statement is a constraint and has only one rank.</p>
+                        
+                        <h2 class="section-heading">R1CS to QAP</h2>
+                        <p>"Quadratic arithmetic problem" (QAP) is a form of problem and it is easy to verify but hard to solve, which means it is not NP complete question. We need to use QAP to do further ZK-SNARK method. During the process of QAP conversion, if you have the input, you can create a corresponding solution referred to as the witness of the QAP. Then, following step is required to create an actual "zero-knowledge proof" for the witness.</p>
+                        <p>Next, we need to convert the R1CS to a sequence composed of three vectors (𝐴, 𝐵, 𝐶). There is a solution vector 𝑠, which must satisfy the inner product operation:</p>
+                        <p style="text-align: center;">𝑠∙𝐴×𝑠∙𝐵=𝑠∙𝐶</p>
+                        <p>In this case, the solution vector 𝑠 corresponds to the witness. For our average example, apart from the 10 variables after flattening (𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub>, 𝑠𝑦𝑚<sub>4</sub>, 𝑥<sub>1</sub>, 𝑥<sub>2</sub>, 𝑥<sub>3</sub>, 𝑥<sub>4</sub>, 𝑥<sub>5</sub>, ~𝑜𝑢𝑡) , we also need to introduce the redundant variable ~one in the first component position to represent the number 1. In our average example, one possible arrangement of these 11 components corresponding to a vector is as follows:</p>
+                        <p style="text-align: center;">𝑠=[~𝑜𝑛𝑒, 𝑠𝑦𝑚<sub>1</sub>, 𝑠𝑦𝑚<sub>2</sub>, 𝑠𝑦𝑚<sub>3</sub>, 𝑠𝑦𝑚<sub>4</sub>, 𝑥<sub>1</sub>, 𝑥<sub>2</sub>, 𝑥<sub>3</sub>, 𝑥<sub>4</sub>, 𝑥<sub>5</sub>, ~𝑜𝑢𝑡]</p>
+                        <p>Assume the input 𝑥<sub>𝑛</sub> are [5, 8, 1, 19, 3], and then we can easily get the 𝑠 value:</p>
+                        <p style="text-align: center;">𝑠=[1, 13, 14, 33, 36, 5, 8, 1, 19, 3, 7.2]</p>
+                        <p>Take first sequence 𝑠𝑦𝑚<sub>1</sub>=𝑥<sub>1</sub>+𝑥<sub>2</sub> ⇒(𝑥<sub>1</sub>+𝑥<sub>2</sub>)∗1=𝑠𝑦𝑚<sub>1</sub> as example, the vectors (𝐴, 𝐵, 𝐶) like:</p>
+                        <p style="text-align: center;">𝐴<sub>1</sub>=[0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]<br>
+                            𝐵<sub>1</sub>=[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]<br>
+                            𝐶<sub>1</sub>=[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]</p>
+                        <p>The other sequences do the same things, then we can get 5 sets of QAP because we have 5 R1CSs. After that, we need to convert the QAP form to polynomial instead of the dot product of the matrix. Lagrange interpolation is applied in this process in order to get the coefficient of the constraints which come from the polynomial pass some specific point.</p>
+                        <p>To be more specific, we convert 5 three-vector-sets of length 11 into 11 sets of polynomials. Each set of polynomials consists of three quartic polynomials.</p>
+                        <p>First, we obtain the polynomials for the first value of 𝐴 vector corresponding to the 5 constraints. This means we use the Lagrange interpolation theorem to find the polynomials passing through points (1, 𝐴<sub>1</sub>(1)), (2, 𝐴<sub>2</sub>(1)), (3, 𝐴<sub>3</sub>(1)), (4, 𝐴<sub>4</sub>(1)) and (5, 𝐴<sub>5</sub>(1)). Then, get the coefficients of this polynomial. Because of the polynomials passing through 5 points, it is a quartic polynomial and correspondingly it has 5 coefficients for the new first value of 𝐴 vector corresponding to the 5 constraints.</p>
+                        <p>Similarly, we can obtain the polynomials for each vector corresponding to the remaining constraints. After we get these 11 polynomials, QAP can become:</p>
+                        <p style="text-align: center;">[𝑠∙𝐴(𝑛)]×[𝑠∙𝐵(𝑛)]−[𝑠∙𝐶(𝑛)]=𝐻(𝑛)×𝑍(𝑛)</p>
+                        <p>where 𝑍(𝑛)=(𝑛−1)(𝑛−2)…(𝑛−5). Therefore, this formula is a standard QAP. Then, the following things is that using this QAP do the ZK-SNARK.</p>
+                        
+                        <h2 class="section-heading">QAP to ZK-SNARK</h2>
+                        <p>By converting computational problem into QAP, we can simultaneously check all the constraints using polynomial inner products, rather than individually checking each constraint like in R1CS.</p>
+                        <p>To verify the result polynomial [𝑠∙𝐴(𝑛)]×[𝑠∙𝐵(𝑛)]−[𝑠∙𝐶(𝑛)] at 𝑛＝1,2,3,4 and 5, we need to check if it equals 0 at all these points. If the polynomial is non-zero at any of these 5 points, the verification fails. Otherwise, if it is zero at all 5 points, the verification is successful.</p>
+                        <p>According the QAP is easy to verify but hard to solve, so if prover have the solution, it is easy to verify. To be specific, verifier randomly give the 𝑛′ to the prover, then the prover can calculate 𝐴̅(𝑛′), 𝐵̅(𝑛′), 𝐶̅(𝑛′) and 𝐻(𝑛′) to verifier where 𝐴̅(𝑛′)=𝑠∙𝐴(𝑛′) and so on. Then, the verifier can calculate the 𝐴̅(𝑛′)×𝐵̅(𝑛′)−𝐶̅(𝑛′) is equal to 𝐻(𝑛′)×𝑍(𝑛′) or not to verify that the prover has the knowledge or not. So far, the briefly proof of ZK-SNARK has been explained. The real implementation on ZK-SNZRK is shown in Fig. 2.</p>
+                        <img class="img-fluid" src="assets/img/ZKSNARK_2.png" alt="..." />
+                        <span class="caption text-muted">Fig. 2. Real implementation on ZK-SNZRK.</span>
+
+                        <p>More details are shown in following links:</p>
+                        <p>
+                            Final report: 
+                            <a href="https://drive.google.com/file/d/1MTduSG-8u6BNaz1EePinH9xi4kR5Tejk/view?usp=drive_link">link</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="https://www.instagram.com/will_0124/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/will.peng.0124/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/willp124">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/will-peng-20a2b5233/">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Will's Blog</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
