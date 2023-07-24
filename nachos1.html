@@ -70,8 +70,9 @@
                         <img class="img-fluid" src="assets/img/nachos1_4.png" alt="..." />
                         <span class="caption text-muted">Fig. 4. addrspace.h中AddrSpace的程式碼</span>
                         <p>其中usedPhysPage[NumPhysPages]是用來記錄所有Page的使用狀況，NumPhysPages是指實體記憶空間最大的Page數；而usedPhysPageNum是用來記錄總共用的Page有多少，以確保加上額外的threads時不會超過NumPhysPages。</p>
-                        <br>
+
                         <p>(2) 在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如圖3所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
+                        
                         
 
                         <h2 class="section-heading">3. Experiment result</h2>
