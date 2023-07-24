@@ -71,9 +71,14 @@
                         <span class="caption text-muted">Fig. 4. addrspace.h中AddrSpace的程式碼</span>
                         <p>其中usedPhysPage[NumPhysPages]是用來記錄所有Page的使用狀況，NumPhysPages是指實體記憶空間最大的Page數；而usedPhysPageNum是用來記錄總共用的Page有多少，以確保加上額外的threads時不會超過NumPhysPages。</p>
 
-                        <p>(2) 在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如圖3所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
-                        
-                        
+                        <p>(2) 在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如Fig. 5所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
+                        <img class="img-fluid" src="assets/img/nachos1_5.png" alt="..." />
+                        <span class="caption text-muted">Fig. 5. 在addrspace.cc中初始化程式碼</span>
+
+                        <p>(3) 接著在解構子AddrSpace::~AddrSpace()中將沒有用到的usedPhysPage[]設回FALSE，並把usedPhysPageNum減掉numPages，以便之後的程式使用，如Fig. 6所示。</p>
+                        <img class="img-fluid" src="assets/img/nachos1_6.png" alt="..." />
+                        <span class="caption text-muted">Fig. 6. 解構子AddrSpace::~AddrSpace()程式碼</span>
+
 
                         <h2 class="section-heading">3. Experiment result</h2>
                         <p>經過以上修改，make後同時執行test1及test2後結果如Fig. 9所示，兩個程式同時執行並未產生未如預期的輸出結果。</p>
