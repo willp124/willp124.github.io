@@ -79,6 +79,13 @@
                         <img class="img-fluid" src="assets/img/nachos1_6.png" alt="..." />
                         <span class="caption text-muted">Fig. 6. 解構子AddrSpace::~AddrSpace()程式碼</span>
 
+                        <p>(4) 到AddrSpace::Load中修改，將原本的ASSERT(numPages <= NumPhysPages); 改為ASSERT(usedPhysPageNum+numPages <= NumPhysPages); 用來檢查是否有足夠的未使用Pages，且多加上usedPhysPageNum+=numPages;。接著將原始AddrSpace::AddrSpace()中的程式碼複製做些修改，首先加上while(usedPhysPage[j++]){}以及usedPhysPage[j-1]=TRUE;，這兩行的功能就是當usedPhysPage[]中的Page被使用時，也就是顯示為TRUE時，就往下一個Page尋找，當找到為FALSE的usedPhysPage[]時，就把它的值設成TRUE，並把資料存在該Page。其餘就是些許的修改，如pageTable = new TranslationEntry[numPages]; 為建立足夠大的記憶空間，以及pageTable[i].physicalPage = i; 改為pageTable[i].physicalPage = j-1; ，以上所有修改如Fig. 7所示。</p>
+                        <img class="img-fluid" src="assets/img/nachos1_7.png" alt="..." />
+                        <span class="caption text-muted">Fig. 7. AddrSpace::Load(char *fileName)中修改後程式碼</span>
+
+                        <p>(5) 最後是更改讀取位置，原本程式碼是直接放入檔案結構裡面紀錄的virtualAddr，然而我們要修改成要找出映射後的實體位置，先將virtualAddr先除PageSize，求得是第幾個Page。然後索引pageTable找到對應的Page是第幾頁，接著乘上每個Page的大小得到該Page的實體記憶空間，再將得到的virtualAddr mod PageSize以求得在Page內的偏移，加上所得Page，就是對應的實體位址，以上修改如Fig. 8所示，註解處為原始程式碼，下方為修改後程式碼。</p>
+                        <img class="img-fluid" src="assets/img/nachos1_8.png" alt="..." />
+                        <span class="caption text-muted">Fig. 8. 更改讀取位置程式碼</span>
 
                         <h2 class="section-heading">3. Experiment result</h2>
                         <p>經過以上修改，make後同時執行test1及test2後結果如Fig. 9所示，兩個程式同時執行並未產生未如預期的輸出結果。</p>
