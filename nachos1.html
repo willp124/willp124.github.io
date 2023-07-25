@@ -61,7 +61,7 @@
                         <img class="img-fluid" src="assets/img/nachos1_2.png" alt="..." />
                         <span class="caption text-muted">Fig. 2. 同時執行test1及test2的結果</span>
                         <h2 class="section-heading">1. Why the result is not congruent with expected?</h2>
-                        <p>因為在NachOS的原始架構中沒有為多個程式做記憶空間的管理，原始架構雖然有另建虛擬的記憶空間，但是當使多份程式同時執行時，就如project1所示，一次執行test1和test2時，他們會重疊使用同樣的記憶空間，使得多個程式發生錯亂。從程式碼來看在addrspace.cc這個檔案中的AddrSpace()，它預設設定會將所有的實體記憶空間分頁分配出去，如圖1 for迴圈所示，預設使其跑到NumPhysPages，為所有實體記憶空間分頁。接著以下會討論如何修改以及修改後結果。</p>
+                        <p>因為在NachOS的原始架構中沒有為多個程式做記憶空間的管理，原始架構雖然有另建虛擬的記憶空間，但是當使多份程式同時執行時，就如project1所示，一次執行test1和test2時，他們會重疊使用同樣的記憶空間，使得多個程式發生錯亂。從程式碼來看在addrspace.cc這個檔案中的AddrSpace()，它預設設定會將所有的實體記憶空間分頁分配出去，如Fig. 3中for迴圈所示，預設使其跑到NumPhysPages，為所有實體記憶空間分頁。接著以下會討論如何修改以及修改後結果。</p>
                         <img class="img-fluid" src="assets/img/nachos1_3.png" alt="..." />
                         <span class="caption text-muted">Fig. 3. 原始NachOS中AddrSpace()的程式碼</span>
 
