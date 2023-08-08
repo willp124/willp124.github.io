@@ -35,13 +35,13 @@
         </nav>
         
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/CPU-scheduling.jpg')">
+        <header class="masthead" style="background-image: url('assets/img/system-call.png')">
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
-                            <h1>NachOS - System Call & CPU Scheduling</h1>
-                            <h2 class="subheading">OS Project 2</h2>
+                            <h1>NachOS - System Call</h1>
+                            <h2 class="subheading">OS Project 2-1</h2>
                             <span class="meta">
                                 Posted by Will Peng on August 8, 2023
                             </span>
@@ -55,9 +55,11 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <h2 class="section-heading">1. Motivation</h2>
+                        <h2 class="section-heading">Motivation</h2>
                         <p>在原先的Nachos中，僅有PrintInt()這個system call，而為了能讓thread能進入休眠，需要自己撰寫休眠的system call。</p>
-                        <img class="img-fluid" src="assets/img/nachos1_1.png" alt="..." />
+                        
+                        <h2 class="section-heading">Implementation</h2>
+                        <img class="img-fluid" src="assets/img/nachos2_1.png" alt="..." />
                         <span class="caption text-muted">Fig. 1. 分開執行test1及test2的結果</span>
                         <p>但在同時執行test1及test2程式時，產生如Fig. 2的結果，存在錯誤的輸出。</p>
                         <img class="img-fluid" src="assets/img/nachos1_2.png" alt="..." />
@@ -67,7 +69,7 @@
                         <img class="img-fluid" src="assets/img/nachos1_3.png" alt="..." />
                         <span class="caption text-muted">Fig. 3. 原始NachOS中AddrSpace()的程式碼</span>
 
-                        <h2 class="section-heading">2. How to solve the issue?</h2>
+                        
                         <p>(1) 首先，需要先在addrspace.h檔中增加兩個static變數，這個static變數是AddrSpace這個class擁有的，如Fig. 4中紅框所示。</p>
                         <img class="img-fluid" src="assets/img/nachos1_4.png" alt="..." />
                         <span class="caption text-muted">Fig. 4. addrspace.h中AddrSpace的程式碼</span>
