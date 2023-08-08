@@ -40,10 +40,10 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
-                            <h1>NachOS - Thread Management</h1>
-                            <h2 class="subheading">OS Project 1</h2>
+                            <h1>NachOS - System Call & CPU Scheduling</h1>
+                            <h2 class="subheading">OS Project 2</h2>
                             <span class="meta">
-                                Posted by Will Peng on July 24, 2023
+                                Posted by Will Peng on August 8, 2023
                             </span>
                         </div>
                     </div>
@@ -55,7 +55,8 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>當分開執行test1及test2程式，產生如Fig. 1的結果。</p>
+                        <h2 class="section-heading">1. Motivation</h2>
+                        <p>在原先的Nachos中，僅有PrintInt()這個system call，而為了能讓thread能進入休眠，需要自己撰寫休眠的system call。</p>
                         <img class="img-fluid" src="assets/img/nachos1_1.png" alt="..." />
                         <span class="caption text-muted">Fig. 1. 分開執行test1及test2的結果</span>
                         <p>但在同時執行test1及test2程式時，產生如Fig. 2的結果，存在錯誤的輸出。</p>
