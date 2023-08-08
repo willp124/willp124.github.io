@@ -59,11 +59,16 @@
                         <p>在原先的Nachos中，僅有PrintInt()這個system call，而為了能讓thread能進入休眠，需要自己撰寫休眠的system call。</p>
                         
                         <h2 class="section-heading">Implementation</h2>
-                        <img class="img-fluid" src="assets/img/nachos2_1.png" alt="..." />
-                        <span class="caption text-muted">Fig. 1. 分開執行test1及test2的結果</span>
-                        <p>但在同時執行test1及test2程式時，產生如Fig. 2的結果，存在錯誤的輸出。</p>
-                        <img class="img-fluid" src="assets/img/nachos1_2.png" alt="..." />
-                        <span class="caption text-muted">Fig. 2. 同時執行test1及test2的結果</span>
+                        <b>(1)  Define new system call code：</b>
+                        <p>在syscall.h中定義system call sleep，並且宣告void Sleep(int number)：</p>
+                        <img class="img-fluid" src="assets/img/nachos2_1_1.png" alt="..." />
+                        <span class="caption text-muted">Fig. 1. 在/code/userprog/syscall.h修改的程式碼</span>
+                        
+                        <b>(2)  Modify the start.s：</b>
+                        <p>仿造PrintInt的程式碼，修改在/code/test/start.s的程式碼：</p>
+                        <img class="img-fluid" src="assets/img/nachos2_1_2.png" alt="..." />
+                        <span class="caption text-muted">Fig. 2. 在/code/test/start.s的新增程式碼</span>
+
                         <h2 class="section-heading">1. Why the result is not congruent with expected?</h2>
                         <p>因為在NachOS的原始架構中沒有為多個程式做記憶空間的管理，原始架構雖然有另建虛擬的記憶空間，但是當使多份程式同時執行時，就如project1所示，一次執行test1和test2時，他們會重疊使用同樣的記憶空間，使得多個程式發生錯亂。從程式碼來看在addrspace.cc這個檔案中的AddrSpace()，它預設設定會將所有的實體記憶空間分頁分配出去，如Fig. 3中for迴圈所示，預設使其跑到NumPhysPages，為所有實體記憶空間分頁。接著以下會討論如何修改以及修改後結果。</p>
                         <img class="img-fluid" src="assets/img/nachos1_3.png" alt="..." />

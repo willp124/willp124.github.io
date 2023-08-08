@@ -67,24 +67,24 @@
                         <span class="caption text-muted">Fig. 3. 原始NachOS中AddrSpace()的程式碼</span>
 
                         <h2 class="section-heading">How to solve the issue?</h2>
-                        <p>(1) 首先，需要先在addrspace.h檔中增加兩個static變數，這個static變數是AddrSpace這個class擁有的，如Fig. 4中紅框所示。</p>
+                        <p>(1)  首先，需要先在addrspace.h檔中增加兩個static變數，這個static變數是AddrSpace這個class擁有的，如Fig. 4中紅框所示。</p>
                         <img class="img-fluid" src="assets/img/nachos1_4.png" alt="..." />
                         <span class="caption text-muted">Fig. 4. addrspace.h中AddrSpace的程式碼</span>
                         <p>其中usedPhysPage[NumPhysPages]是用來記錄所有Page的使用狀況，NumPhysPages是指實體記憶空間最大的Page數；而usedPhysPageNum是用來記錄總共用的Page有多少，以確保加上額外的threads時不會超過NumPhysPages。</p>
 
-                        <p>(2) 在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如Fig. 5所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
+                        <p>(2)  在addrspace.cc檔中，include下面增加兩行程式碼做初始化，如Fig. 5所示。並且把原始AddrSpace::AddrSpace()都註解掉，因為原始設定會將所有的實體記憶空間分頁分配出去，並不是我們要的。</p>
                         <img class="img-fluid" src="assets/img/nachos1_5.png" alt="..." />
                         <span class="caption text-muted">Fig. 5. 在addrspace.cc中初始化程式碼</span>
 
-                        <p>(3) 接著在解構子AddrSpace::~AddrSpace()中將沒有用到的usedPhysPage[]設回FALSE，並把usedPhysPageNum減掉numPages，以便之後的程式使用，如Fig. 6所示。</p>
+                        <p>(3)  接著在解構子AddrSpace::~AddrSpace()中將沒有用到的usedPhysPage[]設回FALSE，並把usedPhysPageNum減掉numPages，以便之後的程式使用，如Fig. 6所示。</p>
                         <img class="img-fluid" src="assets/img/nachos1_6.png" alt="..." />
                         <span class="caption text-muted">Fig. 6. 解構子AddrSpace::~AddrSpace()程式碼</span>
 
-                        <p>(4) 到AddrSpace::Load中修改，將原本的ASSERT(numPages <= NumPhysPages); 改為ASSERT(usedPhysPageNum+numPages <= NumPhysPages); 用來檢查是否有足夠的未使用Pages，且多加上usedPhysPageNum+=numPages;。接著將原始AddrSpace::AddrSpace()中的程式碼複製做些修改，首先加上while(usedPhysPage[j++]){}以及usedPhysPage[j-1]=TRUE;，這兩行的功能就是當usedPhysPage[]中的Page被使用時，也就是顯示為TRUE時，就往下一個Page尋找，當找到為FALSE的usedPhysPage[]時，就把它的值設成TRUE，並把資料存在該Page。其餘就是些許的修改，如pageTable = new TranslationEntry[numPages]; 為建立足夠大的記憶空間，以及pageTable[i].physicalPage = i; 改為pageTable[i].physicalPage = j-1; ，以上所有修改如Fig. 7所示。</p>
+                        <p>(4)  到AddrSpace::Load中修改，將原本的ASSERT(numPages <= NumPhysPages); 改為ASSERT(usedPhysPageNum+numPages <= NumPhysPages); 用來檢查是否有足夠的未使用Pages，且多加上usedPhysPageNum+=numPages;。接著將原始AddrSpace::AddrSpace()中的程式碼複製做些修改，首先加上while(usedPhysPage[j++]){}以及usedPhysPage[j-1]=TRUE;，這兩行的功能就是當usedPhysPage[]中的Page被使用時，也就是顯示為TRUE時，就往下一個Page尋找，當找到為FALSE的usedPhysPage[]時，就把它的值設成TRUE，並把資料存在該Page。其餘就是些許的修改，如pageTable = new TranslationEntry[numPages]; 為建立足夠大的記憶空間，以及pageTable[i].physicalPage = i; 改為pageTable[i].physicalPage = j-1; ，以上所有修改如Fig. 7所示。</p>
                         <img class="img-fluid" src="assets/img/nachos1_7.png" alt="..." />
                         <span class="caption text-muted">Fig. 7. AddrSpace::Load(char *fileName)中修改後程式碼</span>
 
-                        <p>(5) 最後是更改讀取位置，原本程式碼是直接放入檔案結構裡面紀錄的virtualAddr，然而我們要修改成要找出映射後的實體位置，先將virtualAddr先除PageSize，求得是第幾個Page。然後索引pageTable找到對應的Page是第幾頁，接著乘上每個Page的大小得到該Page的實體記憶空間，再將得到的virtualAddr mod PageSize以求得在Page內的偏移，加上所得Page，就是對應的實體位址，以上修改如Fig. 8所示，註解處為原始程式碼，下方為修改後程式碼。</p>
+                        <p>(5)  最後是更改讀取位置，原本程式碼是直接放入檔案結構裡面紀錄的virtualAddr，然而我們要修改成要找出映射後的實體位置，先將virtualAddr先除PageSize，求得是第幾個Page。然後索引pageTable找到對應的Page是第幾頁，接著乘上每個Page的大小得到該Page的實體記憶空間，再將得到的virtualAddr mod PageSize以求得在Page內的偏移，加上所得Page，就是對應的實體位址，以上修改如Fig. 8所示，註解處為原始程式碼，下方為修改後程式碼。</p>
                         <img class="img-fluid" src="assets/img/nachos1_8.png" alt="..." />
                         <span class="caption text-muted">Fig. 8. 更改讀取位置程式碼</span>
 
